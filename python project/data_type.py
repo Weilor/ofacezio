@@ -36,3 +36,10 @@ elif type(lList) == type(lList2):
     print("both of them have same type")
 print("lList id = " + str(id(lList)))
 print("iList2 id = " + str(id(lList2)))
+
+print("--------------------------------\n")
+while 1 :
+    print("loop!")
+else:
+    print("exit")
+print("exit from loop!")
