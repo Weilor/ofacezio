@@ -20,4 +20,19 @@ interger = int(floatnum)
 print("--------------------------------\n")
 print(interger)
 
+iNum = 4
+lList = [5, 4, 3]
+print("--------------------------------\n")
+if iNum in lList:
+    print("iNum is in lList")
+else:
+    print("iNum is not in lList")
+print("--------------------------------\n")
 
+lList2 = [5, 4, 3]
+if lList is lList2:
+    print("both of them are same")
+elif type(lList) == type(lList2):
+    print("both of them have same type")
+print("lList id = " + str(id(lList)))
+print("iList2 id = " + str(id(lList2)))
