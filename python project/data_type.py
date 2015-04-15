@@ -40,3 +40,25 @@ print("iList2 id = " + str(id(lList2)))
 print("--------------------------------\n")
 for i in range(3, 9, 4):
     print(i)
+
+for letter in "中文真的没问题吗？":
+    print(letter)
+
+名字 = ["韩绍文", "acezio", "weilor"]
+for name in 名字:
+    print(name)
+for new_name in range(len(名字)):
+    print("我的名字:",名字[new_name])
+else:
+    print("for else")
+
+print("--------------------------------\n")
+learntodel = [0, "1", 2 ,"3", 4, "5"]
+print(learntodel)
+print("--------------------------------\n")
+del learntodel[1:3]
+print(learntodel)
+print("--------------------------------\n")
+print(learntodel[2])
+print("\a")
+
