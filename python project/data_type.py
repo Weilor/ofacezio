@@ -38,8 +38,5 @@ print("lList id = " + str(id(lList)))
 print("iList2 id = " + str(id(lList2)))
 
 print("--------------------------------\n")
-while 1 :
-    print("loop!")
-else:
-    print("exit")
-print("exit from loop!")
+for i in range(3, 9, 4):
+    print(i)
