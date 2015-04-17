@@ -1,12 +1,15 @@
 __author__ = '绍文'
 
+import time
+import calendar
+
 bag = ["hello", 78, 1.56, 2+3j]
 print(bag[2:3])
 print(bag * 2)
 
 dictionary = {}
 dictionary['first name'] = "han"
-dictionary['last name'] = 'shaowen'
+dictionary['last name'] = "shaowen"
 字典 = {"姓名": "韩绍文", "年龄": 24}
 print("---------------------------------\n")
 print(dictionary)
@@ -64,3 +67,16 @@ print("\a")
 
 print("--------------------------------\n")
 print("我的名字叫%s,我今年%d岁." % ("acezio", 25))
+
+print("--------------------------------\n")
+localtime = time.localtime(time.time())
+localtime_form = time.asctime(localtime)
+print(localtime)
+print(localtime_form)
+
+print("--------------------------------\n")
+mon = calendar.month(2015,4)
+print(mon)
+
+print("--------------------------------\n")
+print(time.clock())
