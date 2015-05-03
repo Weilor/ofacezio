@@ -1,5 +1,4 @@
 __author__ = '绍文'
-from string import punctuation
 import re
 
 fp = open("zenofpython.txt", "r")       # open text file
