@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 __author__ = '绍文'
 
 import os
