@@ -10,8 +10,8 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "website of acezio"
-app.config['SQLALCHEMY_DATABASE_URI'] =\
-'sqlite:///' + os.path.join(basedir, 'data.sqlite')
+app.config['SQLALCHEMY_DATABASE_URI'] = \
+    'sqlite:///' + os.path.join(basedir, 'data.sqlite')
 app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
 
 bootstrap = Bootstrap(app)
@@ -23,24 +23,25 @@ class NameForm(Form):
     submit = SubmitField("提交")
 
 
-class User(db.Model):
-    __tablename__ = 'users'
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String, unique=True)
-    role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
-
-    def __repr__(self):
-        return "Username is %s" % self.username
-
-
 class Role(db.Model):
     __tablename__ = 'roles'
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.Integer, unique=True)
-    users = db.relationship('User', backref='role')
+    name = db.Column(db.String(64), unique=True)
+    users = db.relationship('User', backref='role', lazy='dynamic')
 
     def __repr__(self):
-        return "Rolesname is %s" % self.name
+        return '<Role %r>' % self.name
+
+
+class User(db.Model):
+    __tablename__ = 'users'
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(64), unique=True, index=True)
+    role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
+
+    def __repr__(self):
+        return '<User %r>' % self.username
+
 
 @app.route('/hello')
 def hello_world():
@@ -53,13 +54,24 @@ def hello_world():
 def login():
     form = NameForm()
     if form.validate_on_submit():
-        old_name = session.get("name")
-        if old_name is not None and old_name != form.name.data:
-            flash("欢迎回来 %s" % form.name.data)
-        session["name"] = form.name.data
-        form.name.data = ""
-        return redirect(url_for("login"))
-    return render_template("form.html", name=session.get("name"), form=form)
+        user = User.query.filter_by(username=form.name.data).first()
+        if user is None:
+            user = User(username=form.name.data)
+            db.session.add(user)
+            session['known'] = False
+        else:
+            session['known'] = True
+        session['name'] = form.name.data
+        return redirect(url_for('login'))
+    return render_template('form.html', form=form, name=session.get('name'),
+                           known=session.get('known', False))
+
+
+@app.route('/test', methods=['GET', 'POST'])
+def test():
+    form = NameForm()
+    flash("Welcome!")
+    return render_template("form.html", name=form.name.data, form=form, known=False)
 
 
 @app.route("/index")
@@ -99,5 +111,5 @@ def number(post_id):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
     db.create_all()
+    app.run(debug=True)
