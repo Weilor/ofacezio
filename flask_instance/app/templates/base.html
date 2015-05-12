@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        {% if title %}
+        <title>{{ title }} - microlog</title>
+        {% else %}
+        <title>microlog</title>
+        {% endif %}
+    </head>
+    <body>
+        <div>
+            Microlog: <a href="/index">Home</a>
+        </div>
+    <hr>
+    {% block content %}{% endblock %}
+    </body>
+</html>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        {% if title %}
+        <title>{{ title }} - microlog</title>
+        {% else %}
+        <title>microlog</title>
+        {% endif %}
+    </head>
+    <body>
+        <h1>Hi, {{ users.nickname }}</h1>
+        {% for post in posts %}
+        <p>{{ post.author.nickname }} says <b>{{ post.body }}</b></p>
+        {% endfor %}
+    </body>
+</html>
