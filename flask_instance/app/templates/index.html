@@ -8,6 +8,15 @@
         {% endif %}
     </head>
     <body>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+        {% for message in messages %}
+            <li>{{ message }} </li>
+        {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
         <h1>Hi, {{ users.nickname }}</h1>
         {% for post in posts %}
         <p>{{ post.author.nickname }} says <b>{{ post.body }}</b></p>
